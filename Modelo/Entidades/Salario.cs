@@ -19,5 +19,10 @@ namespace Modelo.Entidades
         public float Utilidades { get; set; }
 
         public estadoSalario EstadoSal { get; set; }
+        //REFERNCIA CON DECIMO TERCERO
+        public Decimo_Tercero decterceros { get; set; }
+        //REFERNCIA CON roles
+
+        public Roles roles { get; set; }
     }
 }

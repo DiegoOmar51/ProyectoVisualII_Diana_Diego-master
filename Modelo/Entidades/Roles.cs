@@ -16,5 +16,8 @@ namespace Modelo.Entidades
         public float aporte_iess { get; set; }
         public float anticipo { get; set; }
         public float total { get; set; }
+        //RELACION CON SALARIO 
+        public int? SalarioID { get; set; }
+        public Salario Salario { get; set; }
     }
 }

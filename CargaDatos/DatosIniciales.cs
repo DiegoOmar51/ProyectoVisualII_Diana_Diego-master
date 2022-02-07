@@ -65,6 +65,23 @@ namespace CargaDatos
                 patito
             };
             #endregion
+            //SALARIOS
+            #region
+            Salario sal1 = new Salario()
+            {
+                Personal = Pedro,
+                SueldoBasico = 500.00f,
+                DecimoTercerSueldo = 33.33f,
+                DecimoCuartoSueldo = 45.12f,
+                Utilidades = 120.00f,
+                EstadoSal = Salario.estadoSalario.Pendiente
+
+            };
+            List<Salario> listasalario = new List<Salario>()
+            {
+                sal1
+            };
+            #endregion
             //DECIMO TERCERO
             #region
             Decimo_Tercero dec13 = new Decimo_Tercero
@@ -73,7 +90,8 @@ namespace CargaDatos
                 fecha_inicio = new DateTime(2019, 3, 1),
                 fecha_final = new DateTime(2022, 3, 1),
                 meses = "12",
-                total=33.33f
+                total=33.33f,
+                Salario = sal1
             };
             List<Decimo_Tercero> listadecimo_Terceros = new List<Decimo_Tercero>()
             {
@@ -88,7 +106,8 @@ namespace CargaDatos
                 comision = 300.00f,
                 aporte_iess = 45.35f,
                 anticipo = 21.00f,
-                total = 966.85f
+                total = 966.85f,
+                Salario = sal1
             };
             List<Roles> listaroles = new List<Roles>()
             {
@@ -110,23 +129,7 @@ namespace CargaDatos
                 liq1
             };
             #endregion
-            //SALARIOS
-            #region
-            Salario sal1 = new Salario()
-            {
-                Personal = Pedro,
-                SueldoBasico = 500.00f,
-                DecimoTercerSueldo = 33.33f,
-                DecimoCuartoSueldo = 45.12f,
-                Utilidades = 120.00f,
-                EstadoSal = Salario.estadoSalario.Pendiente
-
-            };
-            List<Salario> listasalario = new List<Salario>()
-            {
-                sal1
-            };
-            #endregion
+            
 
             // --------------------------------------------
             // Diccionario contiene todas las listas

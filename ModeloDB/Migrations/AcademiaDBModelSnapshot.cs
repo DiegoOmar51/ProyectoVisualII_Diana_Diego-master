@@ -51,6 +51,9 @@ namespace ModeloDB.Migrations
                     b.Property<int?>("PersonalId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SalarioID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("fecha_final")
                         .HasColumnType("datetime2");
 
@@ -66,6 +69,10 @@ namespace ModeloDB.Migrations
                     b.HasKey("Decimo_TerceroId");
 
                     b.HasIndex("PersonalId");
+
+                    b.HasIndex("SalarioID")
+                        .IsUnique()
+                        .HasFilter("[SalarioID] IS NOT NULL");
 
                     b.ToTable("decimo_Terceros");
                 });
@@ -187,6 +194,9 @@ namespace ModeloDB.Migrations
                     b.Property<int?>("PersonalId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SalarioID")
+                        .HasColumnType("int");
+
                     b.Property<float>("anticipo")
                         .HasColumnType("real");
 
@@ -202,6 +212,10 @@ namespace ModeloDB.Migrations
                     b.HasKey("RolesId");
 
                     b.HasIndex("PersonalId");
+
+                    b.HasIndex("SalarioID")
+                        .IsUnique()
+                        .HasFilter("[SalarioID] IS NOT NULL");
 
                     b.ToTable("roles");
                 });
@@ -244,7 +258,13 @@ namespace ModeloDB.Migrations
                         .WithMany("Decimos_Terceros")
                         .HasForeignKey("PersonalId");
 
+                    b.HasOne("Modelo.Entidades.Salario", "Salario")
+                        .WithOne("decterceros")
+                        .HasForeignKey("Modelo.Entidades.Decimo_Tercero", "SalarioID");
+
                     b.Navigation("Personal");
+
+                    b.Navigation("Salario");
                 });
 
             modelBuilder.Entity("Modelo.Entidades.Empresa", b =>
@@ -271,7 +291,13 @@ namespace ModeloDB.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("PersonalId");
 
+                    b.HasOne("Modelo.Entidades.Salario", "Salario")
+                        .WithOne("roles")
+                        .HasForeignKey("Modelo.Entidades.Roles", "SalarioID");
+
                     b.Navigation("Personal");
+
+                    b.Navigation("Salario");
                 });
 
             modelBuilder.Entity("Modelo.Entidades.Salario", b =>
@@ -294,6 +320,13 @@ namespace ModeloDB.Migrations
                     b.Navigation("Roles");
 
                     b.Navigation("Salarios");
+                });
+
+            modelBuilder.Entity("Modelo.Entidades.Salario", b =>
+                {
+                    b.Navigation("decterceros");
+
+                    b.Navigation("roles");
                 });
 #pragma warning restore 612, 618
         }

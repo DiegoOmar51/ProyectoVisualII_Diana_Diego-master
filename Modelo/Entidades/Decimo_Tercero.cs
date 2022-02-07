@@ -16,5 +16,8 @@ namespace Modelo.Entidades
         public DateTime fecha_final { get; set; }
         public string meses { get; set; }
         public float total { get; set; }
+        //RELACION CON SALARIO 
+        public int? SalarioID { get; set; }
+        public Salario Salario { get; set; }
     }
 }

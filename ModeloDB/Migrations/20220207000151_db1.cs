@@ -45,29 +45,6 @@ namespace ModeloDB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "decimo_Terceros",
-                columns: table => new
-                {
-                    Decimo_TerceroId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonalId = table.Column<int>(type: "int", nullable: true),
-                    fecha_inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    fecha_final = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    meses = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    total = table.Column<float>(type: "real", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_decimo_Terceros", x => x.Decimo_TerceroId);
-                    table.ForeignKey(
-                        name: "FK_decimo_Terceros_personales_PersonalId",
-                        column: x => x.PersonalId,
-                        principalTable: "personales",
-                        principalColumn: "PersonalId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "empresas",
                 columns: table => new
                 {
@@ -115,29 +92,6 @@ namespace ModeloDB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "roles",
-                columns: table => new
-                {
-                    RolesId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonalId = table.Column<int>(type: "int", nullable: true),
-                    comision = table.Column<float>(type: "real", nullable: false),
-                    aporte_iess = table.Column<float>(type: "real", nullable: false),
-                    anticipo = table.Column<float>(type: "real", nullable: false),
-                    total = table.Column<float>(type: "real", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_roles", x => x.RolesId);
-                    table.ForeignKey(
-                        name: "FK_roles_personales_PersonalId",
-                        column: x => x.PersonalId,
-                        principalTable: "personales",
-                        principalColumn: "PersonalId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "salarios",
                 columns: table => new
                 {
@@ -161,10 +115,77 @@ namespace ModeloDB.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "decimo_Terceros",
+                columns: table => new
+                {
+                    Decimo_TerceroId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonalId = table.Column<int>(type: "int", nullable: true),
+                    fecha_inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    fecha_final = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    meses = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    total = table.Column<float>(type: "real", nullable: false),
+                    SalarioID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_decimo_Terceros", x => x.Decimo_TerceroId);
+                    table.ForeignKey(
+                        name: "FK_decimo_Terceros_personales_PersonalId",
+                        column: x => x.PersonalId,
+                        principalTable: "personales",
+                        principalColumn: "PersonalId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_decimo_Terceros_salarios_SalarioID",
+                        column: x => x.SalarioID,
+                        principalTable: "salarios",
+                        principalColumn: "SalarioId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "roles",
+                columns: table => new
+                {
+                    RolesId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonalId = table.Column<int>(type: "int", nullable: true),
+                    comision = table.Column<float>(type: "real", nullable: false),
+                    aporte_iess = table.Column<float>(type: "real", nullable: false),
+                    anticipo = table.Column<float>(type: "real", nullable: false),
+                    total = table.Column<float>(type: "real", nullable: false),
+                    SalarioID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_roles", x => x.RolesId);
+                    table.ForeignKey(
+                        name: "FK_roles_personales_PersonalId",
+                        column: x => x.PersonalId,
+                        principalTable: "personales",
+                        principalColumn: "PersonalId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_roles_salarios_SalarioID",
+                        column: x => x.SalarioID,
+                        principalTable: "salarios",
+                        principalColumn: "SalarioId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_decimo_Terceros_PersonalId",
                 table: "decimo_Terceros",
                 column: "PersonalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_decimo_Terceros_SalarioID",
+                table: "decimo_Terceros",
+                column: "SalarioID",
+                unique: true,
+                filter: "[SalarioID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_empresas_PersonalId",
@@ -184,6 +205,13 @@ namespace ModeloDB.Migrations
                 name: "IX_roles_PersonalId",
                 table: "roles",
                 column: "PersonalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_roles_SalarioID",
+                table: "roles",
+                column: "SalarioID",
+                unique: true,
+                filter: "[SalarioID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_salarios_PersonalId",

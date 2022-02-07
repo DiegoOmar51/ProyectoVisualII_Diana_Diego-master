@@ -77,6 +77,16 @@ namespace ModeloDB
                .HasOne(malla => malla.Personal)
                .WithOne(materia => materia.empresa)
                .HasForeignKey<Empresa>(malla => malla.PersonalId);
+            //RELACION DE UNO A UNO CON Roles
+            model.Entity<Roles>()
+               .HasOne(malla => malla.Salario)
+               .WithOne(materia => materia.roles)
+               .HasForeignKey<Roles>(malla => malla.SalarioID);
+            //RELACION DE UNO A UNO CON DECIMO TERCERO
+            model.Entity<Decimo_Tercero>()
+               .HasOne(malla => malla.Salario)
+               .WithOne(materia => materia.decterceros)
+               .HasForeignKey<Decimo_Tercero>(malla => malla.SalarioID);
             //RELACION DE UNO A UNO CON LIQUIDACION
             model.Entity<Liquidaciones>()
                .HasOne(malla => malla.Personal)
